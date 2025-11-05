@@ -15,9 +15,11 @@ A aplicação deve identificar as combinações realizadas, apresentando a ident
 
 ## Rodar o projeto no Erlang
 
-> erl
-> 1> c(pg_alt).
-> 2> c(hydrogen).
-> 3> c(oxygen).
-> 4> c(mysterious_element).
-> 5> mysterious_element:create_mysterious_element().
+```sh
+erl
+1> c(pg_alt).
+2> c(hydrogen).
+3> c(oxygen).
+4> c(mysterious_element).
+5> mysterious_element:create_mysterious_element().
+```

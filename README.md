@@ -21,5 +21,5 @@ erl
 2> c(hydrogen).
 3> c(oxygen).
 4> c(mysterious_element).
-5> mysterious_element:create_mysterious_element().
+5> mysterious_element:start().
 ```

@@ -1,13 +1,12 @@
 -module(mysterious_element).
--export([create_mysterious_element/0]).
+-export([start/0]).
 
 %%% Inicia o sistema criando o gerador de moléculas.
-create_mysterious_element() ->
+start() ->
     pg_alt:create(),
-    spawn(fun() -> molecule_generator() end),
-    watch_combine_event().
+    spawn(fun() -> molecule_generator() end).
 
-%%% Gerador de moléculas continuas, chama as funções que definem as carasterísticas de cada molécula.
+%%% Metodo que gera as moléculas, criando de forma aleatória ou o hidrogênio ou o oxigênio.
 molecule_generator() ->
     spawn(
         generate_molecule_module_name(),

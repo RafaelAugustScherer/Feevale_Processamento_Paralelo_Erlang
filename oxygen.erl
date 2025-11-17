@@ -23,23 +23,17 @@ handle_activation(CreatorPID) ->
          pg_alt:leave(hydrogens, H2),
 
          CreatorPID ! {molecules_combined, [H1, H2, self()]},
-         io:format("~n ----------------------------------------------------
-        ~nFrom Oxygen #~p: I have been combined, stopping to exist
-        ~n ----------------------------------------------------~n", [self()]),
+         io:format(
+           "--------------------------------------------------
+           ~nMerged H20 successfully with: H(#~p, #~p), O(#~p)
+           ~n--------------------------------------------------~n",
+           [H1, H2, self()]
+         ),
          H1 ! {combined},
          H2 ! {combined},
          exit(normal)
     catch
          _:_ ->
-           pg_alt:join(oxygens, self()),
-           watch_combined_event()
+           pg_alt:join(oxygens, self())
      end.
 
-%%% Aguarda uma mensagem indicando que este oxigênio foi combinado. Ao receber, imprime e encerra.
-watch_combined_event() ->
-    receive{combined} ->
-      io:format("~n ----------------------------------------------
-        ~nFrom Oxygen #~p: I have been combined, stopping to exist
-        ~n ----------------------------------------------------~n", [self()]),
-        exit(normal)
-    end.

@@ -19,25 +19,19 @@ handle_activation(CreatorPID) ->
         O = lists:nth(1, pg_alt:get_members(oxygens)),
         pg_alt:leave(hydrogens, H),
         pg_alt:leave(oxygens, O),
-        CreatorPID ! {molecules_combined, [self(), H, O]}, %add comment of all 3 elements
-        io:format("~n ----------------------------------------------
-        ~nFrom Hydrogen #~p: I have been combined, stopping to exist
-        ~n --------------------------------------------------------~n", [self()]),
+        CreatorPID ! {molecules_combined, [self(), H, O]},
+        io:format(
+            "--------------------------------------------------
+            ~nMerged H20 successfully with: H(#~p, #~p), O(#~p)
+           ~n--------------------------------------------------~n",
+            [self(), H, O]
+        ),
         H ! {combined},
         O ! {combined},
         exit(normal)
     catch
         _:_ ->
-            % io:format("Got to error~n Not enough elements for combination ~n"),
-            pg_alt:join(hydrogens, self()),
-            watch_combined_event()
+            pg_alt:join(hydrogens, self())
     end.
 
-%%% Aguarda uma mensagem indicando que este oxigênio foi combinado. Ao receber, imprime e encerra.
-watch_combined_event() ->
-    receive{combined} ->
-        io:format("~n ----------------------------------------------
-        ~nFrom Hydrogen #~p: I have been combined, stopping to exist
-        ~n --------------------------------------------------------~n", [self()]),
-        exit(normal)
-    end.
+

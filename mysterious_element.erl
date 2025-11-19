@@ -4,7 +4,7 @@
 %%% Inicia o sistema criando o gerador de moléculas.
 start() ->
     pg_alt:create(),
-    spawn(fun() -> molecule_generator() end).
+    molecule_generator().
 
 %%% Metodo que gera as moléculas, criando de forma aleatória ou o hidrogênio ou o oxigênio.
 molecule_generator() ->

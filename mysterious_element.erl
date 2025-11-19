@@ -11,7 +11,7 @@ molecule_generator() ->
     spawn(
         generate_molecule_module_name(),
         create_molecule,
-        [self(), generate_molecule_activation_time()]
+        [generate_molecule_activation_time()]
     ),
     receive
         after generate_molecule_spawn_time() ->
@@ -24,7 +24,7 @@ generate_molecule_spawn_time() ->
 
 %%% Tempo aleatório para ativação da molécula criada.
 generate_molecule_activation_time() ->
-    10000 + rand:uniform(30000 - 10000 + 1) - 1.
+    10000 + rand:uniform(30000 - 10000).
 
 %%% Escolhe aleatoriamente (se número aleatório for maior ou igual a 5, será oxigênio, senão será hidrogênio)
 %%% se a molécula criada será hidrogênio ou oxigênio.
